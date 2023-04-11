@@ -3,12 +3,8 @@ import pandas as pd
 import plotly.express as px
 
 # Load the data
-url = "https://docs.google.com/spreadsheets/d/1WFfAL1ixsncQ46V0yLfE8pLovzSvjVg3hJhmJHTaUEw/export?format=csv"
+url = 'https://docs.google.com/spreadsheets/d/1WFfAL1ixsncQ46V0yLfE8pLovzSvjVg3hJhmJHTaUEw/export?format=csv'
 df = pd.read_csv(url)
-
-# filter rows that contain summary statistics
-df = df[~df['Game'].isin([
-    'Median', 'Mean', 'Standard Deviation', 'Mean Absolute Deviation'])]
 
 # convert date column to datetime
 df['Date'] = pd.to_datetime(df['Date'])
@@ -27,7 +23,6 @@ players = [
     'Donyell Malen', 'Youssoufa Moukoko', 'Sebastien Haller',
     'Anthony Modeste'
     ]
-
 
 # create a function to plot ratings distribution
 def display_distribution(column_name):
@@ -49,7 +44,7 @@ def display_distribution(column_name):
 def display_trend(column_name):
     # scatter plot with lowess curves
     fig = px.scatter(
-        df, x='Date', y=column_name, trendline="lowess",
+        df, x='Date', y=column_name, trendline='lowess',
         trendline_options=dict(frac=0.6),
         labels={column_name: 'Rating'},
         width=800, height=400
@@ -68,7 +63,7 @@ selected_player = st.sidebar.selectbox(
 tab1, tab2 = st.tabs(['Distribution', 'Trend'])
 
 with tab1:
-    st.write(f"## {selected_player}")
+    st.write(f'## {selected_player}')
 
     st.write("### 📊 Ratings' Distribution")
     display_distribution(selected_player)
@@ -78,14 +73,14 @@ with tab1:
     std_dev = df[selected_player].std()
     mad = (df[selected_player] - df[selected_player].mean()).abs().mean()
 
-    st.write("### 🧮 Summary Statistics")
-    st.write(f"Mean: {mean:.2f}")
-    st.write(f"Median: {median:.2f}")
-    st.write(f"Standard Deviation: {std_dev:.2f}")
-    st.write(f"Mean Absolute Deviation: {mad:.2f}")
+    st.write('### 🧮 Summary Statistics')
+    st.write(f'Mean: {mean:.2f}')
+    st.write(f'Median: {median:.2f}')
+    st.write(f'Standard Deviation: {std_dev:.2f}')
+    st.write(f'Mean Absolute Deviation: {mad:.2f}')
 
 with tab2:
-    st.write(f"## {selected_player}")
+    st.write(f'## {selected_player}')
 
     st.write('### 📈 Performance Over Time')
     display_trend(selected_player)

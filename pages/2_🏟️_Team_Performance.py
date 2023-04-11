@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 
 # Load the data
-url = "https://docs.google.com/spreadsheets/d/1WFfAL1ixsncQ46V0yLfE8pLovzSvjVg3hJhmJHTaUEw/export?format=csv"
+url = 'https://docs.google.com/spreadsheets/d/1WFfAL1ixsncQ46V0yLfE8pLovzSvjVg3hJhmJHTaUEw/export?format=csv'
 df = pd.read_csv(url)
 
 # convert date column to datetime
@@ -33,7 +33,7 @@ def display_distribution(column_name):
 def display_trend(column_name):
     # scatter plot with lowess curves
     fig = px.scatter(
-        df, x='Date', y=column_name, trendline="lowess",
+        df, x='Date', y=column_name, trendline='lowess',
         trendline_options=dict(frac=0.6),
         labels={column_name: 'Rating'},
         width=800, height=400
@@ -46,7 +46,7 @@ def display_trend(column_name):
 tab1, tab2 = st.tabs(['Distribution', 'Trend'])
 
 with tab1:
-    st.write(f"## BVB's Team Performance")
+    st.write('## BVB Team Performance')
 
     st.write("### 📊 Ratings' Distribution")
     display_distribution('Overall')
@@ -56,14 +56,14 @@ with tab1:
     std_dev = df['Overall'].std()
     mad = (df['Overall'] - df['Overall'].mean()).abs().mean()
 
-    st.write("### 🧮 Summary Statistics")
-    st.write(f"Mean: {mean:.2f}")
-    st.write(f"Median: {median:.2f}")
-    st.write(f"Standard Deviation: {std_dev:.2f}")
-    st.write(f"Mean Absolute Deviation: {mad:.2f}")
+    st.write('### 🧮 Summary Statistics')
+    st.write(f'Mean: {mean:.2f}')
+    st.write(f'Median: {median:.2f}')
+    st.write(f'Standard Deviation: {std_dev:.2f}')
+    st.write(f'Mean Absolute Deviation: {mad:.2f}')
 
 with tab2:
-    st.write(f"## BVB's Team Performance")
+    st.write('## BVB Team Performance')
 
     st.write('### 📈 Ratings Over Time')
     display_trend('Overall')

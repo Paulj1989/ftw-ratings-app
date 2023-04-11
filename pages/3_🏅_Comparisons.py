@@ -24,7 +24,6 @@ players = [
     'Anthony Modeste'
     ]
 
-
 # create a function to plot ratings distribution
 def display_distribution(column_name1, column_name2):
 
@@ -109,7 +108,8 @@ with tab1:
     std_dev1 = df[selected_player1].std()
     mad1 = (df[selected_player1] - df[selected_player1].mean()).abs().mean()
 
-    st.write(f'### 🧮 {selected_player1} Summary Statistics')
+    st.write('### 🧮  Summary Statistics')
+    st.write(f'#### {selected_player1}')
     st.write(f'Mean: {mean1:.2f}')
     st.write(f'Median: {median1:.2f}')
     st.write(f'Standard Deviation: {std_dev1:.2f}')
@@ -120,7 +120,7 @@ with tab1:
     std_dev2 = df[selected_player2].std()
     mad2 = (df[selected_player2] - df[selected_player2].mean()).abs().mean()
 
-    st.write(f'### 🧮 {selected_player2} Summary Statistics')
+    st.write(f'#### {selected_player2}')
     st.write(f'Mean: {mean2:.2f}')
     st.write(f'Median: {median2:.2f}')
     st.write(f'Standard Deviation: {std_dev2:.2f}')
