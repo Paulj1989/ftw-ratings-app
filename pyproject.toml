@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "ftw-ratings-app"
+version = "0.1.0"
+description = "Web app for exploring FTW player ratings"
+authors = ["Paul Johnson <paul@paulrjohnson.net>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+streamlit = "^1.21.0"
+altair = "^4.2.2"
+numpy = "^1.24.2"
+pandas = "^1.5.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
