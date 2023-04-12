@@ -27,6 +27,7 @@ players = [
 
 # create a function to plot ratings distribution
 def display_distribution(column_name1, column_name2):
+
     # define columns to be melted
     melt_cols = [column_name1, column_name2]
 
@@ -71,6 +72,7 @@ def display_distribution(column_name1, column_name2):
 
 # create a function to plot ratings over time
 def display_trend(column_name1, column_name2):
+
     # define columns to be melted
     melt_cols = [column_name1, column_name2]
 
@@ -120,12 +122,14 @@ def display_trend(column_name1, column_name2):
 # Create a sidebar with a dropdown menu to select the column to plot
 selected_player1 = st.sidebar.selectbox(
     label='## Select First Player to Compare',
-    options=players
+    options=players,
+    index=0
     )
 
 selected_player2 = st.sidebar.selectbox(
     label='## Select Second Player to Compare',
-    options=players
+    options=players,
+    index=1
     )
 
 # Define the names of the tabs
