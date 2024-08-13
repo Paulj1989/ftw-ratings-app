@@ -186,17 +186,6 @@ files = [
 ]
 
 [[package]]
-name = "decorator"
-version = "5.1.1"
-description = "Decorators for Humans"
-optional = false
-python-versions = ">=3.5"
-files = [
-    {file = "decorator-5.1.1-py3-none-any.whl", hash = "sha256:b8c3f85900b9dc423225913c5aace94729fe1fa9763b38939a95226f02d37186"},
-    {file = "decorator-5.1.1.tar.gz", hash = "sha256:637996211036b6385ef91435e4fae22989472f9d571faba8927ba8253acbc330"},
-]
-
-[[package]]
 name = "entrypoints"
 version = "0.4"
 description = "Discover and load entry points from installed packages."
@@ -248,25 +237,6 @@ files = [
     {file = "idna-3.7-py3-none-any.whl", hash = "sha256:82fee1fc78add43492d3a1898bfa6d8a904cc97d8427f683ed8e798d07761aa0"},
     {file = "idna-3.7.tar.gz", hash = "sha256:028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"},
 ]
-
-[[package]]
-name = "importlib-metadata"
-version = "6.3.0"
-description = "Read metadata from Python packages"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "importlib_metadata-6.3.0-py3-none-any.whl", hash = "sha256:8f8bd2af397cf33bd344d35cfe7f489219b7d14fc79a3f854b75b8417e9226b0"},
-    {file = "importlib_metadata-6.3.0.tar.gz", hash = "sha256:23c2bcae4762dfb0bbe072d358faec24957901d75b6c4ab11172c0c982532402"},
-]
-
-[package.dependencies]
-zipp = ">=0.5"
-
-[package.extras]
-docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
-perf = ["ipython"]
-testing = ["flake8 (<5)", "flufl.flake8", "importlib-resources (>=1.3)", "packaging", "pyfakefs", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.3)", "pytest-flake8", "pytest-mypy (>=0.9.1)", "pytest-perf (>=0.9.2)"]
 
 [[package]]
 name = "jinja2"
@@ -692,17 +662,6 @@ files = [
 plugins = ["importlib-metadata"]
 
 [[package]]
-name = "pympler"
-version = "1.0.1"
-description = "A development tool to measure, monitor and analyze the memory behavior of Python objects."
-optional = false
-python-versions = ">=3.6"
-files = [
-    {file = "Pympler-1.0.1-py3-none-any.whl", hash = "sha256:d260dda9ae781e1eab6ea15bacb84015849833ba5555f141d2d9b7b7473b307d"},
-    {file = "Pympler-1.0.1.tar.gz", hash = "sha256:993f1a3599ca3f4fcd7160c7545ad06310c9e12f70174ae7ae8d4e25f6c5d3fa"},
-]
-
-[[package]]
 name = "pyrsistent"
 version = "0.19.3"
 description = "Persistent/Functional/Immutable data structures"
@@ -762,20 +721,6 @@ files = [
     {file = "pytz-2023.3-py2.py3-none-any.whl", hash = "sha256:a151b3abb88eda1d4e34a9814df37de2a80e301e68ba0fd856fb9b46bfbbbffb"},
     {file = "pytz-2023.3.tar.gz", hash = "sha256:1d8ce29db189191fb55338ee6d0387d82ab59f3d00eac103412d64e0ebd0c588"},
 ]
-
-[[package]]
-name = "pytz-deprecation-shim"
-version = "0.1.0.post0"
-description = "Shims to make deprecation of pytz easier"
-optional = false
-python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,>=2.7"
-files = [
-    {file = "pytz_deprecation_shim-0.1.0.post0-py2.py3-none-any.whl", hash = "sha256:8314c9692a636c8eb3bda879b9f119e350e93223ae83e70e80c31675a0fdc1a6"},
-    {file = "pytz_deprecation_shim-0.1.0.post0.tar.gz", hash = "sha256:af097bae1b616dde5c5744441e2ddc69e74dfdcb0c263129610d85b87445a59d"},
-]
-
-[package.dependencies]
-tzdata = {version = "*", markers = "python_version >= \"3.6\""}
 
 [[package]]
 name = "requests"
@@ -840,42 +785,53 @@ files = [
 
 [[package]]
 name = "streamlit"
-version = "1.21.0"
-description = "The fastest way to build data apps in Python"
+version = "1.37.0"
+description = "A faster way to build and share data apps"
 optional = false
-python-versions = ">=3.7, !=3.9.7"
+python-versions = "!=3.9.7,>=3.8"
 files = [
-    {file = "streamlit-1.21.0-py2.py3-none-any.whl", hash = "sha256:05862598952a9126e16652caa5bc88eeeea7b2773af252e2daccf1c84ceaaef4"},
-    {file = "streamlit-1.21.0.tar.gz", hash = "sha256:c72d9639508679c5e411d1f886d213777759501d01975285c049dc30db463c1a"},
+    {file = "streamlit-1.37.0-py2.py3-none-any.whl", hash = "sha256:d17e2d32b075a270a97f134ab5d22bbb98b4e474fa261ff49dc4a2b380386c84"},
+    {file = "streamlit-1.37.0.tar.gz", hash = "sha256:463ef728ba21e74e05122e3704e8af644a7bdbb5822e281b8daf4a0a48761879"},
 ]
 
 [package.dependencies]
-altair = ">=3.2.0,<5"
-blinker = ">=1.0.0"
-cachetools = ">=4.0"
-click = ">=7.0"
-gitpython = "!=3.1.19"
-importlib-metadata = ">=1.4"
-numpy = "*"
-packaging = ">=14.1"
-pandas = ">=0.25,<2"
-pillow = ">=6.2.0"
-protobuf = ">=3.12,<4"
-pyarrow = ">=4.0"
-pydeck = ">=0.1.dev5"
-pympler = ">=0.9"
-python-dateutil = "*"
-requests = ">=2.4"
-rich = ">=10.11.0"
-toml = "*"
-tornado = ">=6.0.3"
-typing-extensions = ">=3.10.0.0"
-tzlocal = ">=1.1"
-validators = ">=0.2"
-watchdog = {version = "*", markers = "platform_system != \"Darwin\""}
+altair = ">=4.0,<6"
+blinker = ">=1.0.0,<2"
+cachetools = ">=4.0,<6"
+click = ">=7.0,<9"
+gitpython = ">=3.0.7,<3.1.19 || >3.1.19,<4"
+numpy = ">=1.20,<3"
+packaging = ">=20,<25"
+pandas = ">=1.3.0,<3"
+pillow = ">=7.1.0,<11"
+protobuf = ">=3.20,<6"
+pyarrow = ">=7.0"
+pydeck = ">=0.8.0b4,<1"
+requests = ">=2.27,<3"
+rich = ">=10.14.0,<14"
+tenacity = ">=8.1.0,<9"
+toml = ">=0.10.1,<2"
+tornado = ">=6.0.3,<7"
+typing-extensions = ">=4.3.0,<5"
+watchdog = {version = ">=2.1.5,<5", markers = "platform_system != \"Darwin\""}
 
 [package.extras]
-snowflake = ["snowflake-snowpark-python"]
+snowflake = ["snowflake-connector-python (>=2.8.0)", "snowflake-snowpark-python (>=0.9.0)"]
+
+[[package]]
+name = "tenacity"
+version = "8.5.0"
+description = "Retry code until it succeeds"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "tenacity-8.5.0-py3-none-any.whl", hash = "sha256:b594c2a5945830c267ce6b79a166228323ed52718f30302c1359836112346687"},
+    {file = "tenacity-8.5.0.tar.gz", hash = "sha256:8bc6c0c8a09b31e6cad13c47afbed1a567518250a9a171418582ed8d9c20ca78"},
+]
+
+[package.extras]
+doc = ["reno", "sphinx"]
+test = ["pytest", "tornado (>=4.5)", "typeguard"]
 
 [[package]]
 name = "toml"
@@ -931,35 +887,6 @@ files = [
 ]
 
 [[package]]
-name = "tzdata"
-version = "2023.3"
-description = "Provider of IANA time zone data"
-optional = false
-python-versions = ">=2"
-files = [
-    {file = "tzdata-2023.3-py2.py3-none-any.whl", hash = "sha256:7e65763eef3120314099b6939b5546db7adce1e7d6f2e179e3df563c70511eda"},
-    {file = "tzdata-2023.3.tar.gz", hash = "sha256:11ef1e08e54acb0d4f95bdb1be05da659673de4acbd21bf9c69e94cc5e907a3a"},
-]
-
-[[package]]
-name = "tzlocal"
-version = "4.3"
-description = "tzinfo object for the local timezone"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "tzlocal-4.3-py3-none-any.whl", hash = "sha256:b44c4388f3d34f25862cfbb387578a4d70fec417649da694a132f628a23367e2"},
-    {file = "tzlocal-4.3.tar.gz", hash = "sha256:3f21d09e1b2aa9f2dacca12da240ca37de3ba5237a93addfd6d593afe9073355"},
-]
-
-[package.dependencies]
-pytz-deprecation-shim = "*"
-tzdata = {version = "*", markers = "platform_system == \"Windows\""}
-
-[package.extras]
-devenv = ["black", "check-manifest", "flake8", "pyroma", "pytest (>=4.3)", "pytest-cov", "pytest-mock (>=3.3)", "zest.releaser"]
-
-[[package]]
 name = "urllib3"
 version = "1.26.19"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
@@ -974,22 +901,6 @@ files = [
 brotli = ["brotli (==1.0.9)", "brotli (>=1.0.9)", "brotlicffi (>=0.8.0)", "brotlipy (>=0.6.0)"]
 secure = ["certifi", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "ipaddress", "pyOpenSSL (>=0.14)", "urllib3-secure-extra"]
 socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
-
-[[package]]
-name = "validators"
-version = "0.20.0"
-description = "Python Data Validation for Humans™."
-optional = false
-python-versions = ">=3.4"
-files = [
-    {file = "validators-0.20.0.tar.gz", hash = "sha256:24148ce4e64100a2d5e267233e23e7afeb55316b47d30faae7eb6e7292bc226a"},
-]
-
-[package.dependencies]
-decorator = ">=3.4.0"
-
-[package.extras]
-test = ["flake8 (>=2.4.0)", "isort (>=4.2.2)", "pytest (>=2.2.3)"]
 
 [[package]]
 name = "watchdog"
@@ -1030,22 +941,7 @@ files = [
 [package.extras]
 watchmedo = ["PyYAML (>=3.10)"]
 
-[[package]]
-name = "zipp"
-version = "3.19.1"
-description = "Backport of pathlib-compatible object wrapper for zip files"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "zipp-3.19.1-py3-none-any.whl", hash = "sha256:2828e64edb5386ea6a52e7ba7cdb17bb30a73a858f5eb6eb93d8d36f5ea26091"},
-    {file = "zipp-3.19.1.tar.gz", hash = "sha256:35427f6d5594f4acf82d25541438348c26736fa9b3afa2754bcd63cdb99d8e8f"},
-]
-
-[package.extras]
-doc = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
-test = ["big-O", "jaraco.functools", "jaraco.itertools", "jaraco.test", "more-itertools", "pytest (>=6,!=8.1.*)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-ignore-flaky", "pytest-mypy", "pytest-ruff (>=0.2.1)"]
-
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "1a517ce7a5521ee091f87766612163f623e2a7c0e17b6cb75cb47e7630b544a9"
+content-hash = "00dd10b7ca4eeda81ced87dcf77a374710537b35459cc8fbf5587ccd335c3efc"
