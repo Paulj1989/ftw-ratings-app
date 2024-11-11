@@ -1,0 +1,14 @@
+name: ftw-ratings-app
+title: ftw-ratings-app
+username: paulj1989
+account: paulj1989
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 11682358
+bundleId: 8461486
+url: https://paulj1989.shinyapps.io/ftw-ratings-app/
+version: 1
+quarto_version: 1.4.545
+quarto_engines: knitr
+asMultiple: FALSE
+asStatic: FALSE

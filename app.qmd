@@ -1,0 +1,280 @@
+---
+title: Fear the Wall Ratings & MOTM Tracker
+format:
+  dashboard:
+    nav-buttons: [github]
+    theme: cosmo
+knitr:
+  opts_chunk: 
+    dev: ragg_png
+server: shiny
+---
+
+```{r}
+#| context: setup
+
+# import packages
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(shiny)
+  library(ggplot2)
+})
+
+# setup fonts
+sysfonts::font_add_google("Inter")
+showtext::showtext_auto()
+
+source(here::here("R", "ftw_theme.R"))
+
+theme_set(theme_ftw())
+
+googlesheets4::gs4_deauth()
+# import data
+ratings_id <- "1WFfAL1ixsncQ46V0yLfE8pLovzSvjVg3hJhmJHTaUEw"
+ratings_raw <- googlesheets4::read_sheet(ratings_id)
+motm_id <- "1IWNAjZ8Qt3Z6VasoXB4qrz44fifRk96NoJ20yJg1IO8"
+motm_raw <- googlesheets4::read_sheet(motm_id)
+
+ratings <-
+  ratings_raw |>
+  tidyr::pivot_longer(
+    cols = c(`Gregor Kobel`:Overall),
+    names_to = "player", values_to = "rating"
+    ) |>
+  janitor::clean_names() |>
+  tidyr::drop_na(rating) |> 
+  mutate(date = lubridate::ymd(date)) |> 
+  mutate(games = n_distinct(date), .by = player) |> 
+  filter(games > 15)
+
+motm <- 
+  motm_raw |> 
+  tidyr::pivot_longer(
+    cols = c(MOTM:`4th`),
+    names_to = "place", values_to = "player"
+  ) |>
+  
+  janitor::clean_names() |>
+  tidyr::drop_na(player) |> 
+  mutate(
+    place = factor(place, levels = c("MOTM", "2nd", "3rd", "4th")),
+    points = 
+      case_when(
+        place == "MOTM" ~ 4,
+        place == "2nd" ~ 3,
+        place == "3rd" ~ 2,
+        place == "4th" ~ 1
+      )
+    )
+```
+
+# Ratings
+
+## {.sidebar}
+
+```{r}
+
+checkboxGroupInput(
+  "ratings_season", "Seasons", 
+  choices = unique(ratings$season),
+  selected = unique(ratings$season)
+)
+
+br()
+```
+
+```{r}
+
+checkboxGroupInput(
+  "ratings_competition", "Competitions", 
+  choices = unique(ratings$competition),
+  selected = "Bundesliga"
+  )
+
+br()
+```
+
+```{r}
+selectizeInput(
+  "player", "Player(s) (Max 3)",
+  choices = unique(ratings$player),
+  selected = "Overall",
+  multiple = TRUE, width = "100%",
+  options = list(maxItems = 3)
+  )
+```
+
+## Main Panel
+
+```{r}
+plotOutput("ratings_plot")
+```
+
+```{r}
+DT::DTOutput("ratings_table")
+```
+
+# MOTM 
+
+## {.sidebar}
+
+```{r}
+
+checkboxGroupInput(
+  "motm_season", "Seasons", 
+  choices = unique(motm$season),
+  selected = unique(motm$season)
+)
+
+br()
+```
+
+```{r}
+
+checkboxGroupInput(
+  "motm_competition", "Competitions", 
+  choices = unique(motm$competition),
+  selected = "Bundesliga"
+  )
+
+br()
+```
+
+## Main Panel Plot {width=65%}
+
+```{r}
+plotOutput("motm_plot")
+```
+
+## Main Panel Table {width=35%}
+
+```{r}
+DT::DTOutput("motm_table", fill = TRUE)
+```
+
+# About 
+
+Coming Soon!
+
+```{r}
+#| label: ratings
+#| context: server
+
+ratings_data <- reactive({
+    ratings |>
+    filter(
+      player %in% c(input$player) &
+        season %in% c(input$ratings_season) &
+        competition %in% c(input$ratings_competition)
+      )
+  })
+
+ratings_plot <- 
+  reactive({
+    if (length(input$player) > 1) {
+      
+      plot <-
+        ratings_data() |>
+        ggplot(aes(x = date, y = rating, fill = player)) +
+        geom_point(
+          shape = 21, size = 3, alpha = .9,
+          stroke = 1, colour = "grey20"
+          ) +
+        geom_smooth(aes(colour = player), se = FALSE) +
+        scale_x_date(date_breaks = "3 months", date_labels = "%b %y") +
+        scale_y_continuous(limits = c(1, 10), breaks = seq(1, 10, 1)) +
+        scale_fill_manual(values = c("#ffa600", "#ADB0B3", "#343a40")) +
+        scale_colour_manual(values = c("#ffa600", "#ADB0B3", "#343a40")) +
+        labs(x = NULL, y = NULL)
+      
+    } else {
+      
+      plot <-
+        ratings_data() |>
+        ggplot(aes(x = date, y = rating)) +
+        geom_point(shape = 21, size = 2, stroke = 1.5, colour = "#343a40") +
+        geom_smooth(se = FALSE, colour = "#ffa600") +
+        scale_x_date(date_breaks = "3 months", date_labels = "%b %y") +
+        scale_y_continuous(limits = c(1, 10), breaks = seq(1, 10, 1)) +
+        labs(x = NULL, y = NULL)
+      
+    }
+    
+    return(plot)
+    
+  })
+
+output$ratings_plot <- renderPlot({
+      ratings_plot()
+    })
+
+output$ratings_table <- DT::renderDT({
+      DT::datatable(
+        ratings_data() |> 
+          summarise(
+            rating = round(mean(rating), 2), 
+            .by = c(player, season, competition, writer)
+            ) |>
+          arrange(desc(rating)) |>
+          rename_with(~ snakecase::to_title_case(.x)),
+        options = list(
+          dom = "tip",
+          columnDefs = list(list(targets = "_all", className = "dt-center"))
+          ),
+        rownames = FALSE
+        )
+})
+```
+
+
+```{r}
+#| label: motm
+#| context: server
+
+motm_data <- reactive({
+  motm |> 
+    filter(
+      season %in% c(input$motm_season) & 
+        competition %in% c(input$motm_competition)
+      ) |> 
+    summarise(points = sum(points), .by = c(player, season, competition, place)) |> 
+    mutate(player = forcats::fct_reorder(player, points, .fun = sum))
+  })
+
+motm_plot <- 
+  reactive({
+    plot <-
+      motm_data() |>
+      summarise(points = sum(points), .by = c(player, place)) |> 
+      ggplot(aes(x = player, y = points, fill = place)) +
+      geom_col(colour = "grey20") +
+      geom_hline(yintercept = 0, colour = "grey20", linewidth = 0.8) +
+      coord_flip() +
+      scale_fill_manual(values = c("#ffa600", "#ffbf60", "#ffd599", "#ffeacd")) +
+      labs(x = NULL, y = NULL)
+
+    return(plot)
+    
+    })
+
+output$motm_plot <- renderPlot({
+      motm_plot()
+    })
+
+output$motm_table <- 
+  DT::renderDT({
+    DT::datatable(
+      motm_data() |> 
+        summarise(points = round(sum(points), 2), .by = player) |>
+        arrange(desc(points)) |> 
+        rename_with(~ snakecase::to_title_case(.x)),
+      options = list(
+        dom = "tip",
+        scrollY = "100%",
+        pageLength = 50,
+        columnDefs = list(list(targets = "_all", className = "dt-center"))
+        ),
+      rownames = FALSE
+      )
+})
+```
